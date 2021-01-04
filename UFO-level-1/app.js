@@ -20,9 +20,15 @@ data.forEach((sighting)=> {
             }
             value = stringParts.join(" ")
         }
-        
+
         else if (key == 'shape'){
             value = value.charAt(0).toUpperCase() + value.slice(1)
+        }
+        else if (key == 'comments') {
+        console.log(typeof value)
+            value = value.replaceAll("&#44",",")
+            value = value.replaceAll("&339", "'")
+
         };
 
         var cell = row.append("td");
