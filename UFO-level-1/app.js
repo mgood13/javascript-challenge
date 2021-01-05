@@ -1,15 +1,21 @@
 // from data.js
+// Bring in the data and initialize the variables that we need.
 var tableData = data;
 radio = 'before';
+
+// Check the length of the dataset so that we know when we're running into problems.
 console.log(data.length)
 
-
+// Obtain our table where the data will be stored.
 var tbody = d3.select("tbody");
 generateTable(data);
 
+// This functions serves to populate the table with data whenever it is called.
 function generateTable(generatedata) {
+
+// Each instance of data will be called a sighting.
 generatedata.forEach((sighting)=> {
-console.log(sighting.datetime.split('/')[1])
+    // For each data entry we will create a new row of data.
     var row = tbody.append('tr');
     Object.entries(sighting).forEach(([key,value]) => {
 
