@@ -1,9 +1,12 @@
 // from data.js
 var tableData = data;
+radio = 'before';
+console.log(data.length)
 
 
 var tbody = d3.select("tbody");
 data.forEach((sighting)=> {
+console.log(sighting.datetime.split('/')[1])
     var row = tbody.append('tr');
     Object.entries(sighting).forEach(([key,value]) => {
 
@@ -27,11 +30,96 @@ data.forEach((sighting)=> {
         else if (key == 'comments') {
         console.log(typeof value)
             value = value.replaceAll("&#44",",")
-            value = value.replaceAll("&339", "'")
-
+            value = value.replaceAll("&#39", "'")
+            value = value.replaceAll("&#33", "!")
         };
 
         var cell = row.append("td");
         cell.text(value);
     });
 });
+
+// Grab the value from the radio buttons
+var radioselection = d3.selectAll('input[type = radio]');
+    radioselection.on('change', function() {
+        console.log('Button changed to: ' + this.value)
+        radio = this.value
+});
+
+var button = d3.select("#filter-btn");
+
+
+var form = d3.select("#filters");
+
+
+button.on("click", runEnter);
+form.on("submit",runEnter);
+
+function userFilter(date,param){
+
+    if (param == 'before'){
+        data.forEach(function(sightingrow){
+            day = sightingrow.datetime.split('/')[1];
+            var userDay = date.split('/')[1];
+            console.log("HELLO")
+            return day <= userDay
+        })
+    }
+
+    else {
+        data.forEach(function(sightingrow){
+            day = sightingrow.datetime.split('/')[1];
+            var userDay = date.split('/')[1];
+            console.log("HERE")
+            return day >= userDay
+        })
+    }
+
+}
+
+function filterData(asighting){
+    console.log(asighting.city)
+    return true
+
+}
+
+function runEnter() {
+
+  // Prevent the page from refreshing
+  d3.event.preventDefault();
+
+  // Select the input element and get the raw HTML node
+  var inputElement = d3.select("#datetime");
+
+  // Get the value property of the input element
+  var inputDate = inputElement.property("value");
+
+  // Print the value to the console
+  console.log(inputDate);
+  console.log(radio);
+
+
+//var filteredData = data.filter(userFilter(inputDate, radio));
+var filteredData = data.filter(mysighting => {
+
+if (radio == 'before'){
+            var day = parseInt(mysighting.datetime.split('/')[1]);
+
+            var userDay = parseInt(inputDate.split('/')[1]);
+            return day <= userDay
+    }
+
+    else {
+            var day = parseInt(mysighting.datetime.split('/')[1]);
+            var userDay = parseInt(inputDate.split('/')[1]);
+            return day >= userDay
+    }
+    })
+
+
+
+
+  // Set the span tag in the h1 element to the text
+  // that was entered in the form
+  d3.select("#results").text(inputDate);
+  };

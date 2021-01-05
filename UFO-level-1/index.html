@@ -35,13 +35,13 @@
               <li class="filter list-group-item">
                 <label for="date">Enter Date to Filter Data</label>
                 <input class="form-control" id="datetime" type="text" placeholder="1/11/2011">
-                <button id="filter-btn" type="button" class="btn btn-info" style = 'border-radius: 5px; margin-top:5px'>Filter Table</button>
+                <button id="filter-btn" type="button" class="btn btn-info" style = 'border-radius: 5px; margin-top:5px;'>Filter Table</button>
               </li>
 
               <li>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                    <label class="form-check-label" for="exampleRadios1">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="beforeradio" value="before" checked>
+                    <label class="form-check-label" for="beforeradio">
                       Search BEFORE Date
                     </label>
                 </div>
@@ -49,8 +49,8 @@
 
               <li>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                  <label class="form-check-label" for="exampleRadios2">
+                  <input class="form-check-input" type="radio" name="exampleRadios" id="afterradio" value="after">
+                  <label class="form-check-label" for="afterradio">
                     Search AFTER Date
                   </label>
                 </div>
@@ -60,15 +60,7 @@
           </div>
         </div>
       </div>
-    <div class = 'row'>
-      <div class = "col-md-4"></div>
-      <div style = 'background-color: #95aec1; border-radius: 5px' align = 'center' class = 'col-md-4'>
-        <div class = 'row'>
-          <div class = 'col-md-6' style = 'color:black'>A box</div>
-        <div class = 'col-md-6' style = 'color:black'>HI</div>
-          </div>
-      </div>
-    </div>
+
 
 
     <div class="container">
@@ -96,6 +88,7 @@
         </div>
       </div>
     </div>
+    <h1 id = "results"></h1>
     <footer class="footer">
 
     </footer>
@@ -103,6 +96,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
   <script src="data.js"></script>
   <script src="app.js"></script>
+
 </body>
 
 </html>
