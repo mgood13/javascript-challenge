@@ -18,24 +18,31 @@ generatedata.forEach((sighting)=> {
     // For each data entry we will create a new row of data.
     var row = tbody.append('tr');
     Object.entries(sighting).forEach(([key,value]) => {
+        // This if statement is all about cleaning the data.
 
+        // The postal code for the state is used so we put it in all caps as appropriate.
         if (key == 'state' || key == 'country'){
             value = value.toUpperCase();
         }
+
+        // Capitalize the first letter of the city. Some cities are multiple words, each will be capitalized.
         else if (key == 'city') {
             var stringParts = value.split(" ");
             stringParts.forEach(capitals);
 
+            // This function takes the first letter using charAt, capitalizes it then uses slice to take the rest of the word.
             function capitals(word,index,sentence){
                 word = word.charAt(0).toUpperCase() + word.slice(1)
                 sentence[index] = word
             }
             value = stringParts.join(" ")
         }
-
+        // Similar to city we want to capitalize the first letter, but these are all one word.
         else if (key == 'shape'){
             value = value.charAt(0).toUpperCase() + value.slice(1)
         }
+
+        // The comments column contained a number of different Unicode characters. This replaces them with their characters.
         else if (key == 'comments') {
         console.log(typeof value)
             value = value.replaceAll("&#44",",")
@@ -43,6 +50,7 @@ generatedata.forEach((sighting)=> {
             value = value.replaceAll("&#33", "!")
         };
 
+        // Add the corrected cell to the row
         var cell = row.append("td");
         cell.text(value);
     });
@@ -54,7 +62,6 @@ var radioselection = d3.selectAll('input[type = radio]');
     radioselection.on('change', function() {
         console.log('Button changed to: ' + this.value)
         radio = this.value
-        runEnter
 });
 
 var button = d3.select("#filter-btn");
