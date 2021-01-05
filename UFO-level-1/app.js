@@ -60,23 +60,27 @@ generatedata.forEach((sighting)=> {
 // Grab the value from the radio buttons
 var radioselection = d3.selectAll('input[type = radio]');
     radioselection.on('change', function() {
+
+        // Log to the console that the button changed (for debugging)
         console.log('Button changed to: ' + this.value)
         radio = this.value
 });
 
+// Grab the filter button
 var button = d3.select("#filter-btn");
-
-
 var form = d3.select("#filters");
 
-
+// Object handlers for the button and the form
 button.on("click", runEnter);
 form.on("submit",runEnter);
 
+// This is the main filter function
 function userFilter(date,param){
 
+    // The user is able to select if they want to filter before or after the given date, this code is basically duplicated with a sign change.
     if (param == 'before'){
         data.forEach(function(sightingrow){
+            // Grab just the day since we're working with a dataset with the same month and year and only different days
             day = sightingrow.datetime.split('/')[1];
             var userDay = date.split('/')[1];
             console.log("HELLO")
