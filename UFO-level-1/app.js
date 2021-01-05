@@ -5,7 +5,10 @@ console.log(data.length)
 
 
 var tbody = d3.select("tbody");
-data.forEach((sighting)=> {
+generateTable(data);
+
+function generateTable(generatedata) {
+generatedata.forEach((sighting)=> {
 console.log(sighting.datetime.split('/')[1])
     var row = tbody.append('tr');
     Object.entries(sighting).forEach(([key,value]) => {
@@ -38,12 +41,14 @@ console.log(sighting.datetime.split('/')[1])
         cell.text(value);
     });
 });
+}
 
 // Grab the value from the radio buttons
 var radioselection = d3.selectAll('input[type = radio]');
     radioselection.on('change', function() {
         console.log('Button changed to: ' + this.value)
         radio = this.value
+        runEnter
 });
 
 var button = d3.select("#filter-btn");
@@ -116,10 +121,15 @@ if (radio == 'before'){
     }
     })
 
-
+if (filteredData.length == 0){
+    d3.select("#warning").text("No results found - Try the format '1/5/2010.' Remember: You don't need to include the year and the data only covers January 1-13 of 2010.")
+    console.log("warning")
+}
 
 
   // Set the span tag in the h1 element to the text
   // that was entered in the form
-  d3.select("#results").text(inputDate);
+  d3.select("tbody").selectAll('tr').remove();
+  generateTable(filteredData)
+
   };
